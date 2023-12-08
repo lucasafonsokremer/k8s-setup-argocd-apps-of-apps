@@ -1,0 +1,40 @@
+apps:
+  app01:
+    enabled: false
+    project: apps
+    path: charts/path01
+    repoURL: null
+    targetRevision: null
+    valueFiles: null
+    namespace: apps
+    autoSync: null
+ 
+  app02:
+    enabled: false
+    project: apps
+    path: charts/path02
+    repoURL: null
+    targetRevision: null
+    valueFiles: null
+    namespace: apps
+    autoSync: null
+
+  app03:
+    enabled: false
+    project: apps
+    path: charts/path03
+    repoURL: null
+    targetRevision: null
+    valueFiles: null
+    namespace: apps
+    autoSync: null
+
+default:
+  app:
+    project: null
+    path: null
+    repoURL: https://github.com/lucasafonsokremer/k8s-setup-argocd-apps-of-apps.git
+    targetRevision: HEAD
+    valueFiles: values.yaml
+    namespace: null
+    autoSync: true

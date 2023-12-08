@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: aws-sqs
+spec:
+  template:
+    serviceAccountName: operate-workflow-sa
+  dependencies:
+    - name: test-dep
+      eventSourceName: aws-sqs
+      eventName: example
+  triggers:
+    - template:
+        name: sqs-workflow
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                generateName: aws-sqs-workflow-
+              spec:
+                containers:
+                  - name: argocd-sync
+                    args:
+                      - "argocd app sync {{inputs.parameters.message}}"
+                    image: docker/argocd-cmd:latest
+          parameters:
+            - src:
+                dependencyName: test-dep
+                dataKey: body
+              dest: spec.arguments.parameters.0.value
